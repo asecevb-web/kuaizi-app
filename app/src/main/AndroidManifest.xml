@@ -9,7 +9,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="筷子班回忆"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config">
         <activity
             android:name=".MainActivity"
             android:exported="true"
