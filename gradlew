@@ -1,16 +1,22 @@
 #!/bin/sh
-# Gradle wrapper - downloads gradle if needed
+# Gradle wrapper script for GitHub Actions
 GRADLE_VERSION=8.5
-GRADLE_DIR="$HOME/.gradle/wrapper/dists/gradle-${GRADLE_VERSION}-bin"
-GRADLE_URL="https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip"
 
-if [ ! -d "$GRADLE_DIR" ]; then
-    echo "Downloading Gradle $GRADLE_VERSION..."
-    mkdir -p "$GRADLE_DIR"
-    curl -sL "$GRADLE_URL" -o /tmp/gradle.zip
-    unzip -q /tmp/gradle.zip -d "$GRADLE_DIR"
-    rm /tmp/gradle.zip
+# Use Gradle from system if available (GitHub Actions has it)
+if command -v gradle >/dev/null 2>&1; then
+    exec gradle "$@"
 fi
 
-GRADLE_HOME=$(find "$GRADLE_DIR" -maxdepth 1 -name "gradle-*" -type d | head -1)
+# Otherwise download
+GRADLE_DIR="$HOME/.gradle"
+GRADLE_HOME="$GRADLE_DIR/gradle-${GRADLE_VERSION}"
+
+if [ ! -d "$GRADLE_HOME" ]; then
+    echo "Downloading Gradle $GRADLE_VERSION..."
+    mkdir -p "$GRADLE_DIR"
+    curl -sL "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" -o /tmp/gradle.zip
+    unzip -q /tmp/gradle.zip -d "$GRADLE_DIR"
+    rm -f /tmp/gradle.zip
+fi
+
 exec "$GRADLE_HOME/bin/gradle" "$@"
