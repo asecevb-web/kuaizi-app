@@ -7,6 +7,7 @@
     </base-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">shn.asia</domain>
+        <domain>8.156.90.186</domain>
         <trust-anchors>
             <certificates src="system" />
             <certificates src="user" />

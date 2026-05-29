@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // 保持在 app 内打开链接
-                if (url.contains("shn.asia/kuaizi")) {
+                if (url.contains("8.156.90.186/kuaizi")) {
                     view.loadUrl(url);
                     return true;
                 }
@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        webView.loadUrl("https://shn.asia/kuaizi/login");
+        webView.loadUrl("https://8.156.90.186/kuaizi/login");
     }
 
     @Override
